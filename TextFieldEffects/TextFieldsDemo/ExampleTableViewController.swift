@@ -38,6 +38,8 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
   }
   @available(iOS 10.0, *)
   func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-    hoshiTextField?.showError(message: "Bad Name!")
+    if let text = textField.text, !text.isEmpty {
+      hoshiTextField?.showError(message: "Bad Name!")
+    }
   }
 }
