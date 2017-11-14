@@ -12,6 +12,7 @@ import UIKit
  An HoshiTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the lower edge of the control.
  */
 @IBDesignable open class HoshiTextField: TextFieldEffects {
+
   /**
    The color of the border when it has no content.
 
@@ -76,8 +77,8 @@ import UIKit
   private let activeBorderLayer = CALayer()
   private var activePlaceholderPoint: CGPoint = CGPoint(x:0, y:-2)
   private var inactivePlaceholderPoint: CGPoint = CGPoint(x:0, y:26)
-  private var placeholderFont: UIFont?
   private var placeholderLabelOriginalText: String?
+  private let placeholderFont: UIFont? = UIFont(name: "Roboto", size: 12)
 
   open func showError(message: String) {
     placeholderLabelOriginalText = placeholderLabel.text
@@ -155,6 +156,7 @@ import UIKit
   private func updatePlaceholder() {
     placeholderLabel.text = placeholder
     placeholderLabel.textColor = placeholderColor
+    placeholderLabel.font = placeholderFont
     placeholderLabel.sizeToFit()
 
     if isFirstResponder || text!.isNotEmpty {
