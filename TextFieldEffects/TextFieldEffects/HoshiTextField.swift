@@ -72,13 +72,13 @@ import UIKit
 
   private let borderThickness: (active: CGFloat, inactive: CGFloat) = (active: 2, inactive: 0.5)
   private let placeholderInsets = CGPoint(x: 0, y: 25)
-  private let textFieldInsets = CGPoint(x: 0, y: 8)
+  private let textFieldInsets = CGPoint(x: 0, y: 6)
   private let inactiveBorderLayer = CALayer()
   private let activeBorderLayer = CALayer()
   private var activePlaceholderPoint: CGPoint = CGPoint(x:0, y:-2)
-  private var inactivePlaceholderPoint: CGPoint = CGPoint(x:0, y:26)
+  private var inactivePlaceholderPoint: CGPoint = CGPoint(x:0, y:20)
   private var placeholderLabelOriginalText: String?
-  private let placeholderFont: UIFont? = UIFont(name: "Roboto", size: 12)
+  private var placeholderFont: UIFont?
 
   open func showError(message: String) {
     placeholderLabelOriginalText = placeholderLabel.text
@@ -102,7 +102,8 @@ import UIKit
     let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: rect.size.width, height: rect.size.height))
 
     placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
-
+    placeholderLabel.frame.origin = self.inactivePlaceholderPoint
+    placeholderFont = UIFont(name: "Roboto-Regular", size: 12)
     updateBorder()
     updatePlaceholder()
 
@@ -120,6 +121,8 @@ import UIKit
                      options: .beginFromCurrentState,
                      animations: ({
                       self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+                      self.placeholderLabel.font = self.placeholderFont
+                      self.placeholderLabel.sizeToFit()
                       self.placeholderLabel.frame.origin = self.activePlaceholderPoint
                      }), completion: { _ in
                       self.animationCompletionHandler?(.textEntry)
@@ -135,9 +138,15 @@ import UIKit
                      initialSpringVelocity: 2.0,
                      options: UIViewAnimationOptions.beginFromCurrentState, animations: ({
                       self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                      guard let fontSize = self.font?.pointSize else { return }
+                      guard let fontName = self.font?.fontName else { return }
+                      self.placeholderLabel.font = UIFont(name: fontName,
+                                                          size: fontSize)
+                      self.placeholderLabel.sizeToFit()
                       self.placeholderLabel.frame.origin = self.inactivePlaceholderPoint
-                     }), completion: { _ in
-        self.animationCompletionHandler?(.textDisplay)
+                     }), completion: { [weak self] _  in
+                      guard let strongSelf = self else { return }
+                      strongSelf.animationCompletionHandler?(.textDisplay)
       })
     }
   }
@@ -156,7 +165,10 @@ import UIKit
   private func updatePlaceholder() {
     placeholderLabel.text = placeholder
     placeholderLabel.textColor = placeholderColor
-    placeholderLabel.font = placeholderFont
+    guard let fontSize = self.font?.pointSize else { return }
+    guard let fontName = self.font?.fontName else { return }
+    self.placeholderLabel.font = UIFont(name: fontName,
+                                        size: fontSize)
     placeholderLabel.sizeToFit()
 
     if isFirstResponder || text!.isNotEmpty {
