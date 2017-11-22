@@ -76,6 +76,7 @@
 		4CBF767B1A71AF7700073B6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C1C7E6B01FC5E1DB003A1EDC /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "TextFieldsDemo/Font/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		C1C7E6B11FC5E1DB003A1EDC /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "TextFieldsDemo/Font/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		C1C7E6B41FC60193003A1EDC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "TextFieldsDemo/Font/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		DF983ABA1BBD1F4100BCC4C7 /* YoshikoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoshikoTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +131,7 @@
 			children = (
 				C1C7E6B01FC5E1DB003A1EDC /* Roboto-Bold.ttf */,
 				C1C7E6B11FC5E1DB003A1EDC /* Roboto-Regular.ttf */,
+				C1C7E6B41FC60193003A1EDC /* Roboto-Medium.ttf */,
 				4CBF766E1A71AF7700073B6A /* TextFieldsDemo */,
 				4CB3B6CF1AA8DEA7000AFA56 /* TextFieldEffects */,
 				4CBF764C1A71AE4500073B6A /* Products */,

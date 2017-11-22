@@ -80,8 +80,6 @@ import UIKit
                      y: frame.origin.y,
                      width: bounds.size.width,
                      height: height)
-      updatePlaceholder()
-      updateBorder()
     }
   }
 
@@ -98,7 +96,7 @@ import UIKit
   private var activePlaceholderPoint: CGPoint = CGPoint(x: 0, y: -2)
   private var inactivePlaceholderPoint: CGPoint {
     get {
-      if let font = font, font.pointSize > 17 {
+      if let font = font, font.pointSize > 15 {
         return CGPoint(x: 0, y: 14)
       } else {
         return CGPoint(x: 0, y: 20)
