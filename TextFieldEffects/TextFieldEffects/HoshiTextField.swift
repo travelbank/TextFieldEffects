@@ -18,9 +18,12 @@ import UIKit
    */
   @IBInspectable dynamic open var textFieldHeight: CGFloat = 45 {
     didSet {
-
+      if let font = font, font.pointSize > CGFloat(15) {
+        height = textFieldHeight + 10
+      }
     }
   }
+
   /**
    The color of the border when it has no content.
 
@@ -76,10 +79,15 @@ import UIKit
       frame = CGRect(x: frame.origin.x,
                      y: frame.origin.y,
                      width: bounds.size.width,
-                     height: textFieldHeight)
-      updateBorder()
+                     height: height)
       updatePlaceholder()
+      updateBorder()
     }
+  }
+
+  override open func awakeFromNib() {
+    super.awakeFromNib()
+    initPlaceholderFont()
   }
 
   private let borderThickness: (active: CGFloat, inactive: CGFloat) = (active: 2, inactive: 0.5)
@@ -87,10 +95,20 @@ import UIKit
   private let textFieldInsets = CGPoint(x: 0, y: 6)
   private let inactiveBorderLayer = CALayer()
   private let activeBorderLayer = CALayer()
-  private var activePlaceholderPoint: CGPoint = CGPoint(x:0, y:-2)
-  private var inactivePlaceholderPoint: CGPoint = CGPoint(x:0, y:20)
+  private var activePlaceholderPoint: CGPoint = CGPoint(x: 0, y: -2)
+  private var inactivePlaceholderPoint: CGPoint {
+    get {
+      if let font = font, font.pointSize > 17 {
+        return CGPoint(x: 0, y: 14)
+      } else {
+        return CGPoint(x: 0, y: 20)
+      }
+    }
+  }
+
   private var placeholderLabelOriginalText: String?
   private var placeholderFont: UIFont?
+  private var height: CGFloat = 45
 
   open func showError(message: String) {
     placeholderLabelOriginalText = placeholderLabel.text
@@ -111,6 +129,10 @@ import UIKit
   // MARK: - TextFieldEffects
 
   override open func drawViewsForRect(_ rect: CGRect) {
+    frame = CGRect(x: frame.origin.x,
+                   y: frame.origin.y,
+                   width: rect.size.width ,
+                   height: height)
     configurePlaceholderLabelFrame()
     configurePlaceholderFont()
     updateBorder()
@@ -119,10 +141,6 @@ import UIKit
     layer.addSublayer(inactiveBorderLayer)
     layer.addSublayer(activeBorderLayer)
     addSubview(placeholderLabel)
-    frame = CGRect(x: rect.origin.x,
-                   y: rect.origin.y,
-                   width: rect.size.width ,
-                   height: textFieldHeight)
   }
 
   override open func animateViewsForTextEntry() {
@@ -166,6 +184,13 @@ import UIKit
   }
 
   // MARK: - Private
+  private func initPlaceholderFont() {
+    guard let fontSize = self.font?.pointSize else { return }
+    guard let fontName = self.font?.fontName else { return }
+    self.placeholderLabel.font = UIFont(name: fontName,
+                                        size: fontSize)
+
+  }
 
   private func configurePlaceholderLabelFrame() {
     placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
@@ -190,10 +215,6 @@ import UIKit
   private func updatePlaceholder() {
     placeholderLabel.text = placeholder
     placeholderLabel.textColor = placeholderColor
-    guard let fontSize = self.font?.pointSize else { return }
-    guard let fontName = self.font?.fontName else { return }
-    self.placeholderLabel.font = UIFont(name: fontName,
-                                        size: fontSize)
     placeholderLabel.sizeToFit()
 
     if isFirstResponder || text!.isNotEmpty {
