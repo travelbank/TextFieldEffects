@@ -14,6 +14,14 @@ import UIKit
 @IBDesignable open class HoshiTextField: TextFieldEffects {
 
   /**
+   Fixed textfield height, change this only if designs change
+   */
+  @IBInspectable dynamic open var textFieldHeight: CGFloat = 45 {
+    didSet {
+
+    }
+  }
+  /**
    The color of the border when it has no content.
 
    This property applies a color to the lower edge of the control. The default value for this property is a clear color.
@@ -51,12 +59,12 @@ import UIKit
 
    This property determines the size of the placeholder label relative to the font size of the text field.
    */
-  @IBInspectable dynamic open var placeholderFontSize: CGFloat = 12  {
+  var placeholderFontSize: CGFloat = 12  {
     didSet {
       updatePlaceholder()
     }
   }
-
+  
   override open var placeholder: String? {
     didSet {
       updatePlaceholder()
@@ -65,6 +73,10 @@ import UIKit
 
   override open var bounds: CGRect {
     didSet {
+      frame = CGRect(x: frame.origin.x,
+                     y: frame.origin.y,
+                     width: bounds.size.width,
+                     height: textFieldHeight)
       updateBorder()
       updatePlaceholder()
     }
@@ -99,17 +111,18 @@ import UIKit
   // MARK: - TextFieldEffects
 
   override open func drawViewsForRect(_ rect: CGRect) {
-    let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: rect.size.width, height: rect.size.height))
-
-    placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
-    placeholderLabel.frame.origin = self.inactivePlaceholderPoint
-    placeholderFont = UIFont(name: "Roboto-Regular", size: 12)
+    configurePlaceholderLabelFrame()
+    configurePlaceholderFont()
     updateBorder()
     updatePlaceholder()
 
     layer.addSublayer(inactiveBorderLayer)
     layer.addSublayer(activeBorderLayer)
     addSubview(placeholderLabel)
+    frame = CGRect(x: rect.origin.x,
+                   y: rect.origin.y,
+                   width: rect.size.width ,
+                   height: textFieldHeight)
   }
 
   override open func animateViewsForTextEntry() {
@@ -136,7 +149,8 @@ import UIKit
       UIView.animate(withDuration: 0.35, delay: 0.0,
                      usingSpringWithDamping: 0.8,
                      initialSpringVelocity: 2.0,
-                     options: UIViewAnimationOptions.beginFromCurrentState, animations: ({
+                     options: UIViewAnimationOptions.beginFromCurrentState,
+                     animations: ({
                       self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                       guard let fontSize = self.font?.pointSize else { return }
                       guard let fontName = self.font?.fontName else { return }
@@ -152,6 +166,17 @@ import UIKit
   }
 
   // MARK: - Private
+
+  private func configurePlaceholderLabelFrame() {
+    placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
+    placeholderLabel.frame.origin = self.inactivePlaceholderPoint
+  }
+
+  private func configurePlaceholderFont() {
+    if let font = UIFont(name: "Roboto-Regular", size: 12) {
+      placeholderFont = font
+    }
+  }
 
   private func updateBorder() {
     inactiveBorderLayer.frame = rectForBorder(borderThickness.inactive)
@@ -177,7 +202,8 @@ import UIKit
   }
 
   private func rectForBorder(_ thickness: CGFloat) -> CGRect {
-    return CGRect(origin: CGPoint(x: 0, y: frame.height-thickness), size: CGSize(width: frame.width, height: thickness))
+    return CGRect(origin: CGPoint(x: 0, y: frame.height-thickness),
+                  size: CGSize(width: frame.width, height: thickness))
   }
 
   // MARK: - Overrides

@@ -39,9 +39,8 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Roboto-Bold.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string></string>
+		<string>$(SRCROOT)/Font/Roboto-Bold.ttf</string>
+		<string>$(SRCROOT)/Font/Roboto-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
