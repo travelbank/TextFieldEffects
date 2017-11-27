@@ -112,7 +112,7 @@ import UIKit
     placeholderLabelOriginalText = placeholderLabel.text
     placeholderLabel.textColor = borderActiveColor
     placeholderLabel.text = message
-    activeBorderLayer.frame = self.rectForBorder(self.borderThickness.active)
+    activeBorderLayer.frame = rectForBorder(borderThickness.active)
     activeBorderLayer.isHidden = false
     placeholderLabel.sizeToFit()
   }
@@ -142,7 +142,11 @@ import UIKit
   }
 
   override open func animateViewsForTextEntry() {
-    if text!.isEmpty {
+    guard let text = text else {
+      return
+    }
+
+    if text.isEmpty {
       UIView.animate(withDuration: 0.35,
                      delay: 0.0,
                      usingSpringWithDamping: 0.8,
@@ -162,16 +166,15 @@ import UIKit
 
   override open func animateViewsForTextDisplay() {
     if text!.isEmpty {
-      UIView.animate(withDuration: 0.35, delay: 0.0,
+      UIView.animate(withDuration: 0.35,
+                     delay: 0.0,
                      usingSpringWithDamping: 0.8,
                      initialSpringVelocity: 2.0,
                      options: UIViewAnimationOptions.beginFromCurrentState,
                      animations: ({
                       self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                      guard let fontSize = self.font?.pointSize else { return }
-                      guard let fontName = self.font?.fontName else { return }
-                      self.placeholderLabel.font = UIFont(name: fontName,
-                                                          size: fontSize)
+                      guard let font = self.font else { return }
+                      self.placeholderLabel.font = font
                       self.placeholderLabel.sizeToFit()
                       self.placeholderLabel.frame.origin = self.inactivePlaceholderPoint
                      }), completion: { [weak self] _  in
@@ -183,10 +186,8 @@ import UIKit
 
   // MARK: - Private
   private func initPlaceholderFont() {
-    guard let fontSize = self.font?.pointSize else { return }
-    guard let fontName = self.font?.fontName else { return }
-    self.placeholderLabel.font = UIFont(name: fontName,
-                                        size: fontSize)
+    guard let font = self.font else { return }
+    self.placeholderLabel.font = font
 
   }
 
@@ -215,7 +216,11 @@ import UIKit
     placeholderLabel.textColor = placeholderColor
     placeholderLabel.sizeToFit()
 
-    if isFirstResponder || text!.isNotEmpty {
+    guard let text = text else {
+      return
+    }
+
+    if isFirstResponder || text.isNotEmpty {
       animateViewsForTextEntry()
     }
   }
