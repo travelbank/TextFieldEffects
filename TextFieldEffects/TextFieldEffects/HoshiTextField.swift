@@ -120,7 +120,7 @@ typealias VoidClosure = () -> Void
   }
 
   open func hideError() {
-    placeholderLabel.text = placeholderLabelOriginalText != nil ? placeholderLabelOriginalText : placeholderLabel.text
+    placeholderLabel.text = placeholderLabelOriginalText ?? placeholderLabel.text
     placeholderLabel.textColor = placeholderColor
     activeBorderLayer.isHidden = true
     placeholderLabel.sizeToFit()
