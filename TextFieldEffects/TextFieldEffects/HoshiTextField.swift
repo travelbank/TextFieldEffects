@@ -64,7 +64,7 @@ typealias VoidClosure = () -> Void
 
    This property determines the size of the placeholder label relative to the font size of the text field.
    */
-  var placeholderFontSize: CGFloat = 12  {
+  var placeholderFontSize: CGFloat = 13  {
     didSet {
       updatePlaceholder()
     }
