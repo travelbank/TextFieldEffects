@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias VoidClosure = () -> Void
+
 /**
  An HoshiTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the lower edge of the control.
  */
@@ -153,10 +155,7 @@ import UIKit
                      initialSpringVelocity: 1.0,
                      options: .beginFromCurrentState,
                      animations: ({
-                      self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-                      self.placeholderLabel.font = self.placeholderFont
-                      self.placeholderLabel.sizeToFit()
-                      self.placeholderLabel.frame.origin = self.activePlaceholderPoint
+                      self.viewForTextEntryAnimationClosure()
                      }), completion: { _ in
                       self.animationCompletionHandler?(.textEntry)
 
@@ -165,35 +164,53 @@ import UIKit
   }
 
   override open func animateViewsForTextDisplay() {
-    if text!.isEmpty {
+    guard let text = text else {
+      return
+    }
+
+    if text.isEmpty {
       UIView.animate(withDuration: 0.35,
                      delay: 0.0,
                      usingSpringWithDamping: 0.8,
                      initialSpringVelocity: 2.0,
                      options: UIViewAnimationOptions.beginFromCurrentState,
                      animations: ({
-                      self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                      guard let font = self.font else { return }
-                      self.placeholderLabel.font = font
-                      self.placeholderLabel.sizeToFit()
-                      self.placeholderLabel.frame.origin = self.inactivePlaceholderPoint
-                     }), completion: { [weak self] _  in
-                      guard let strongSelf = self else { return }
-                      strongSelf.animationCompletionHandler?(.textDisplay)
+                      self.viewForTextDisplayAnimationClosure()
+                     }), completion: { _  in
+                      self.animationCompletionHandler?(.textDisplay)
       })
     }
   }
 
   // MARK: - Private
+
+  private var viewForTextEntryAnimationClosure: VoidClosure {
+    return {
+      self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+      self.placeholderLabel.font = self.placeholderFont
+      self.placeholderLabel.sizeToFit()
+      self.placeholderLabel.frame.origin = self.activePlaceholderPoint
+    }
+  }
+
+  private var viewForTextDisplayAnimationClosure: VoidClosure {
+    return { self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+      guard let font = self.font else { return }
+      self.placeholderLabel.font = font
+      self.placeholderLabel.sizeToFit()
+      self.placeholderLabel.frame.origin = self.inactivePlaceholderPoint
+    }
+  }
+
   private func initPlaceholderFont() {
-    guard let font = self.font else { return }
+    guard let font = font else { return }
     self.placeholderLabel.font = font
 
   }
 
   private func configurePlaceholderLabelFrame() {
     placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
-    placeholderLabel.frame.origin = self.inactivePlaceholderPoint
+    placeholderLabel.frame.origin = inactivePlaceholderPoint
   }
 
   private func configurePlaceholderFont() {
