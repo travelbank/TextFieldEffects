@@ -99,9 +99,9 @@ typealias VoidClosure = () -> Void
   private var inactivePlaceholderPoint: CGPoint {
     get {
       if let font = font, font.pointSize > 15 {
-        return CGPoint(x: 0, y: 14)
+        return CGPoint(x: 0, y: 8)
       } else {
-        return CGPoint(x: 0, y: 20)
+        return CGPoint(x: 0, y: 17)
       }
     }
   }
