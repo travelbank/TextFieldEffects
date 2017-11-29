@@ -51,13 +51,10 @@ typealias VoidClosure = () -> Void
   /**
    The color of the placeholder text.
 
-   This property applies a color to the complete placeholder string. The default value for this property is a black color.
+   This property applies a color to the complete placeholder string.
    */
-  @IBInspectable dynamic open var placeholderColor: UIColor = .black {
-    didSet {
-      updatePlaceholder()
-    }
-  }
+  private var placeholderColorEmptyState: UIColor = UIColor(red: 198/255, green: 200/255, blue: 204/255, alpha: 1)
+  private var placeholderColorInputState: UIColor = UIColor(red: 164/255, green: 167/255, blue: 174/255, alpha: 1)
 
   /**
    The scale of the placeholder font.
@@ -107,7 +104,7 @@ typealias VoidClosure = () -> Void
   }
 
   private var placeholderLabelOriginalText: String?
-  private var placeholderFont: UIFont?
+  private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 12)
   private var height: CGFloat = 45
 
   open func showError(message: String) {
@@ -121,7 +118,7 @@ typealias VoidClosure = () -> Void
 
   open func hideError() {
     placeholderLabel.text = placeholderLabelOriginalText ?? placeholderLabel.text
-    placeholderLabel.textColor = placeholderColor
+    placeholderLabel.textColor = placeholderColorEmptyState
     activeBorderLayer.isHidden = true
     placeholderLabel.sizeToFit()
   }
@@ -186,26 +183,31 @@ typealias VoidClosure = () -> Void
 
   private var viewForTextEntryAnimationClosure: VoidClosure {
     return {
-      self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
       self.placeholderLabel.font = self.placeholderFont
       self.placeholderLabel.sizeToFit()
+      self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
       self.placeholderLabel.frame.origin = self.activePlaceholderPoint
+      self.placeholderLabel.textColor = self.placeholderColorInputState
     }
   }
 
   private var viewForTextDisplayAnimationClosure: VoidClosure {
-    return { self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-      guard let font = self.font else { return }
+    return {
+      guard let font = UIFont(name: "Roboto-Regular",
+                              size: (self.font?.pointSize)!) else { return }
       self.placeholderLabel.font = font
       self.placeholderLabel.sizeToFit()
+      self.placeholderLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
       self.placeholderLabel.frame.origin = self.inactivePlaceholderPoint
+      self.placeholderLabel.textColor = self.placeholderColorEmptyState
     }
   }
 
   private func initPlaceholderFont() {
-    guard let font = font else { return }
-    self.placeholderLabel.font = font
-
+    self.placeholderLabel.textColor = placeholderColorEmptyState
+    guard let font = placeholderFont else { return }
+    let sizedFont = UIFont.init(name: font.fontName, size: (self.font?.pointSize)!)
+    self.placeholderLabel.font = sizedFont
   }
 
   private func configurePlaceholderLabelFrame() {
@@ -214,7 +216,7 @@ typealias VoidClosure = () -> Void
   }
 
   private func configurePlaceholderFont() {
-    if let font = UIFont(name: "Roboto-Regular", size: 12) {
+    if let font = placeholderFont {
       placeholderFont = font
     }
   }
@@ -230,7 +232,6 @@ typealias VoidClosure = () -> Void
 
   private func updatePlaceholder() {
     placeholderLabel.text = placeholder
-    placeholderLabel.textColor = placeholderColor
     placeholderLabel.sizeToFit()
 
     guard let text = text else {
@@ -243,7 +244,7 @@ typealias VoidClosure = () -> Void
   }
 
   private func rectForBorder(_ thickness: CGFloat) -> CGRect {
-    return CGRect(origin: CGPoint(x: 0, y: frame.height-thickness),
+    return CGRect(origin: CGPoint(x: 0, y: floor(frame.height-thickness)),
                   size: CGSize(width: frame.width, height: thickness))
   }
 

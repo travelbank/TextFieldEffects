@@ -22,9 +22,10 @@
 		4CB3B6F61AA8DEC3000AFA56 /* YokoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3B6EE1AA8DEC3000AFA56 /* YokoTextField.swift */; };
 		4CB3B6F71AA8DED3000AFA56 /* TextFieldEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB3B6CE1AA8DEA7000AFA56 /* TextFieldEffects.framework */; };
 		4CBF76721A71AF7700073B6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBF76711A71AF7700073B6A /* AppDelegate.swift */; };
-		4CBF76771A71AF7700073B6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CBF76751A71AF7700073B6A /* Main.storyboard */; };
 		4CBF76791A71AF7700073B6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CBF76781A71AF7700073B6A /* Images.xcassets */; };
-		4CBF767C1A71AF7700073B6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CBF767A1A71AF7700073B6A /* LaunchScreen.xib */; };
+		C150D11B1FCF0728009DF2AC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1C7E6B41FC60193003A1EDC /* Roboto-Medium.ttf */; };
+		C150D11C1FCF0737009DF2AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CBF76751A71AF7700073B6A /* Main.storyboard */; };
+		C150D11D1FCF073E009DF2AC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CBF767A1A71AF7700073B6A /* LaunchScreen.xib */; };
 		C1C7E6B21FC5E1DB003A1EDC /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1C7E6B01FC5E1DB003A1EDC /* Roboto-Bold.ttf */; };
 		C1C7E6B31FC5E1DB003A1EDC /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1C7E6B11FC5E1DB003A1EDC /* Roboto-Regular.ttf */; };
 		DF983ABB1BBD1F4100BCC4C7 /* YoshikoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF983ABA1BBD1F4100BCC4C7 /* YoshikoTextField.swift */; };
@@ -271,10 +272,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C150D11D1FCF073E009DF2AC /* LaunchScreen.xib in Resources */,
+				C150D11C1FCF0737009DF2AC /* Main.storyboard in Resources */,
+				C150D11B1FCF0728009DF2AC /* Roboto-Medium.ttf in Resources */,
 				C1C7E6B21FC5E1DB003A1EDC /* Roboto-Bold.ttf in Resources */,
 				C1C7E6B31FC5E1DB003A1EDC /* Roboto-Regular.ttf in Resources */,
-				4CBF76771A71AF7700073B6A /* Main.storyboard in Resources */,
-				4CBF767C1A71AF7700073B6A /* LaunchScreen.xib in Resources */,
 				4CBF76791A71AF7700073B6A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
