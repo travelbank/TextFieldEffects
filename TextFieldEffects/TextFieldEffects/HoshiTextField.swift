@@ -89,7 +89,8 @@ typealias VoidClosure = () -> Void
     
     
     
-    private let borderThickness: (active: CGFloat, inactive: CGFloat) = (active: 2, inactive: 0.5)
+    private let borderThicknessActive: CGFloat = 2
+    private let borderThicknessInactive: CGFloat = 0.5
     private let placeholderInsets = CGPoint(x: 0, y: 25)
     private let textFieldInsets = CGPoint(x: 0, y: 6)
     private let inactiveBorderLayer = CALayer()
@@ -121,7 +122,7 @@ typealias VoidClosure = () -> Void
         placeholderLabelOriginalText = placeholderLabel.text
         placeholderLabel.textColor = borderActiveColor
         placeholderLabel.text = message
-        activeBorderLayer.frame = rectForBorder(borderThickness.active)
+        activeBorderLayer.frame = rectForBorder(borderThicknessActive)
         activeBorderLayer.isHidden = false
         placeholderLabel.sizeToFit()
     }
@@ -232,10 +233,10 @@ typealias VoidClosure = () -> Void
     }
     
     private func updateBorder() {
-        inactiveBorderLayer.frame = rectForBorder(borderThickness.inactive)
+        inactiveBorderLayer.frame = rectForBorder(borderThicknessInactive)
         inactiveBorderLayer.backgroundColor = borderInactiveColor?.cgColor
         
-        activeBorderLayer.frame = rectForBorder(borderThickness.active)
+        activeBorderLayer.frame = rectForBorder(borderThicknessActive)
         activeBorderLayer.backgroundColor = borderActiveColor?.cgColor
         activeBorderLayer.isHidden = true
     }
