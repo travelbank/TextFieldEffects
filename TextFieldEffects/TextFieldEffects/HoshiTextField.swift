@@ -116,22 +116,24 @@ typealias VoidClosure = () -> Void
     
     private var placeholderLabelOriginalText: String?
     private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 13)
+	private var errorFont: UIFont? = UIFont(name: "Roboto-Regular", size: 10)
     private var height: CGFloat = 45
-    
+	
+	private var errorLabel = UILabel()
+	
     open func showError(message: String) {
-        placeholderLabelOriginalText = placeholderLabel.text
-        placeholderLabel.textColor = borderActiveColor
-        placeholderLabel.text = message
-        activeBorderLayer.frame = rectForBorder(borderThicknessActive)
-        activeBorderLayer.isHidden = false
-        placeholderLabel.sizeToFit()
+		errorLabel.text = message
+		errorLabel.textColor = borderActiveColor
+		errorLabel.sizeToFit()
+		errorLabel.isHidden = false
+		
+		activeBorderLayer.frame = rectForBorder(borderThicknessActive)
+		activeBorderLayer.isHidden = false
     }
     
     open func hideError() {
-        placeholderLabel.text = placeholderLabelOriginalText ?? placeholderLabel.text
-        placeholderLabel.textColor = placeholderColorEmptyState
-        activeBorderLayer.isHidden = true
-        placeholderLabel.sizeToFit()
+		errorLabel.isHidden = true
+		activeBorderLayer.isHidden = true
     }
     
     // MARK: - TextFieldEffects
@@ -143,15 +145,18 @@ typealias VoidClosure = () -> Void
                        height: height)
         configurePlaceholderLabelFrame()
         configurePlaceholderFont()
+		configureErrorLabel()
         updateBorder()
         updatePlaceholder()
         
         layer.addSublayer(inactiveBorderLayer)
         layer.addSublayer(activeBorderLayer)
         addSubview(placeholderLabel)
+		addSubview(errorLabel)
     }
     
     override open func animateViewsForTextEntry() {
+		hideError()
         guard let text = text else {
             return
         }
@@ -231,6 +236,12 @@ typealias VoidClosure = () -> Void
             placeholderFont = font
         }
     }
+	
+	private func configureErrorLabel() {
+		errorLabel.frame.origin = activePlaceholderPoint
+		errorLabel.font = errorFont
+		errorLabel.isHidden = true
+	}
     
     private func updateBorder() {
         inactiveBorderLayer.frame = rectForBorder(borderThicknessInactive)
