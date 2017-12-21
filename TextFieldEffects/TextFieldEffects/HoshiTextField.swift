@@ -152,7 +152,7 @@ typealias VoidClosure = () -> Void
         layer.addSublayer(inactiveBorderLayer)
         layer.addSublayer(activeBorderLayer)
         addSubview(placeholderLabel)
-		addSubview(errorLabel)
+	addSubview(errorLabel)
     }
     
     override open func animateViewsForTextEntry() {
