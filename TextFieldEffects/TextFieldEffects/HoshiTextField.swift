@@ -89,10 +89,10 @@ typealias VoidClosure = () -> Void
     
     
     
-    private let borderThicknessActive: CGFloat = 2
+    private let borderThicknessActive: CGFloat = 1.0
     private let borderThicknessInactive: CGFloat = 0.5
     private let placeholderInsets = CGPoint(x: 0, y: 25)
-    private let textFieldInsets = CGPoint(x: 0, y: 6)
+    private let textFieldInsets = CGPoint(x: 0, y: 4.5)
     private let inactiveBorderLayer = CALayer()
     private let activeBorderLayer = CALayer()
     private var activePlaceholderPoint: CGPoint {
@@ -107,33 +107,33 @@ typealias VoidClosure = () -> Void
     private var inactivePlaceholderPoint: CGPoint {
         get {
             if let font = font, font.pointSize > 15 {
-                return CGPoint(x: 0, y: 8)
+                return CGPoint(x: 0, y: 18)
             } else {
-                return CGPoint(x: 0, y: 17)
+                return CGPoint(x: 0, y: 27)
             }
         }
     }
     
     private var placeholderLabelOriginalText: String?
-    private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 13)
-    private var errorFont: UIFont? = UIFont(name: "Roboto-Regular", size: 10)
-    private var height: CGFloat = 45
+    private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 16)
+    private var errorFont: UIFont? = UIFont(name: "Roboto-Regular", size: 13)
+    private var height: CGFloat = 55
 	
     private var errorLabel = UILabel()
 	
     open func showError(message: String) {
-	errorLabel.text = message
-	errorLabel.textColor = borderActiveColor
-	errorLabel.sizeToFit()
-	errorLabel.isHidden = false
+		errorLabel.text = message
+		errorLabel.textColor = borderActiveColor
+		errorLabel.sizeToFit()
+		errorLabel.isHidden = false
 
-	activeBorderLayer.frame = rectForBorder(borderThicknessActive)
-	activeBorderLayer.isHidden = false
+		activeBorderLayer.frame = rectForBorder(borderThicknessActive)
+		activeBorderLayer.isHidden = false
     }
     
     open func hideError() {
-	errorLabel.isHidden = true
-	activeBorderLayer.isHidden = true
+		errorLabel.isHidden = true
+		activeBorderLayer.isHidden = true
     }
     
     // MARK: - TextFieldEffects
@@ -145,14 +145,14 @@ typealias VoidClosure = () -> Void
                        height: height)
         configurePlaceholderLabelFrame()
         configurePlaceholderFont()
-	configureErrorLabel()
+		configureErrorLabel()
         updateBorder()
         updatePlaceholder()
         
         layer.addSublayer(inactiveBorderLayer)
         layer.addSublayer(activeBorderLayer)
         addSubview(placeholderLabel)
-	addSubview(errorLabel)
+		addSubview(errorLabel)
     }
     
     override open func animateViewsForTextEntry() {
@@ -201,7 +201,7 @@ typealias VoidClosure = () -> Void
         return {
             self.placeholderLabel.font = self.placeholderFont
             self.placeholderLabel.sizeToFit()
-            self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            self.placeholderLabel.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             self.placeholderLabel.frame.origin = self.activePlaceholderPoint
             self.placeholderLabel.textColor = self.placeholderColorInputState
         }
@@ -238,9 +238,9 @@ typealias VoidClosure = () -> Void
     }
 	
     private func configureErrorLabel() {
-	errorLabel.frame.origin = activePlaceholderPoint
-	errorLabel.font = errorFont
-	errorLabel.isHidden = true
+		errorLabel.frame.origin = activePlaceholderPoint
+		errorLabel.font = errorFont
+		errorLabel.isHidden = true
     }
     
     private func updateBorder() {
