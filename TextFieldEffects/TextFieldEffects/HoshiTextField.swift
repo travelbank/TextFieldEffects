@@ -155,44 +155,37 @@ typealias VoidClosure = () -> Void
 		addSubview(errorLabel)
     }
     
-    override open func animateViewsForTextEntry() {
-	hideError()
-        guard let text = text else {
-            return
-        }
-        
-        if text.isEmpty {
-            UIView.animate(withDuration: 0.35,
-                           delay: 0.0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 1.0,
-                           options: .beginFromCurrentState,
-                           animations: ({
-                            self.viewForTextEntryAnimationClosure()
-                           }), completion: { _ in
-                            self.animationCompletionHandler?(.textEntry)
-                            
-            })
-        }
-    }
+	override open func animateViewsForTextEntry() {
+		hideError()
+		
+		guard let text = text else { return }
+		let duration = text.isEmpty ? 0.35 : 0.0
+		UIView.animate(withDuration: duration,
+					   delay: 0.0,
+					   usingSpringWithDamping: 0.8,
+					   initialSpringVelocity: 1.0,
+					   options: .beginFromCurrentState,
+					   animations: ({
+						self.viewForTextEntryAnimationClosure()
+					}), completion: { _ in
+						self.animationCompletionHandler?(.textEntry)
+		})
+	}
     
     override open func animateViewsForTextDisplay() {
-        guard let text = text else {
-            return
-        }
-        
-        if text.isEmpty {
-            UIView.animate(withDuration: 0.35,
-                           delay: 0.0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 2.0,
-                           options: UIViewAnimationOptions.beginFromCurrentState,
-                           animations: ({
-                            self.viewForTextDisplayAnimationClosure()
-                           }), completion: { _  in
-                            self.animationCompletionHandler?(.textDisplay)
-            })
-        }
+        guard let text = text,
+			  text.isEmpty else { return }
+		
+		UIView.animate(withDuration: 0.35,
+					   delay: 0.0,
+					   usingSpringWithDamping: 0.8,
+					   initialSpringVelocity: 2.0,
+					   options: UIViewAnimationOptions.beginFromCurrentState,
+					   animations: ({
+						self.viewForTextDisplayAnimationClosure()
+					   }), completion: { _  in
+						self.animationCompletionHandler?(.textDisplay)
+		})
     }
     
     // MARK: - Private
