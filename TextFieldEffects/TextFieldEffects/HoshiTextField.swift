@@ -155,26 +155,19 @@ typealias VoidClosure = () -> Void
 		addSubview(errorLabel)
     }
     
-    override open func animateViewsForTextEntry() {
-	hideError()
-        guard let text = text else {
-            return
-        }
-        
-        if text.isEmpty {
-            UIView.animate(withDuration: 0.35,
-                           delay: 0.0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 1.0,
-                           options: .beginFromCurrentState,
-                           animations: ({
-                            self.viewForTextEntryAnimationClosure()
-                           }), completion: { _ in
-                            self.animationCompletionHandler?(.textEntry)
-                            
-            })
-        }
-    }
+	override open func animateViewsForTextEntry() {
+		hideError()
+		UIView.animate(withDuration: 0.35,
+					   delay: 0.0,
+					   usingSpringWithDamping: 0.8,
+					   initialSpringVelocity: 1.0,
+					   options: .beginFromCurrentState,
+					   animations: ({
+						self.viewForTextEntryAnimationClosure()
+					}), completion: { _ in
+						self.animationCompletionHandler?(.textEntry)
+		})
+	}
     
     override open func animateViewsForTextDisplay() {
         guard let text = text else {
