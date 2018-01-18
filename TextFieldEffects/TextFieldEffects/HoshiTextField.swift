@@ -158,7 +158,9 @@ typealias VoidClosure = () -> Void
 	override open func animateViewsForTextEntry() {
 		hideError()
 		
-		UIView.animate(withDuration: 0.35,
+		guard let text = text else { return }
+		let duration = text.isEmpty ? 0.35 : 0.0
+		UIView.animate(withDuration: duration,
 					   delay: 0.0,
 					   usingSpringWithDamping: 0.8,
 					   initialSpringVelocity: 1.0,
