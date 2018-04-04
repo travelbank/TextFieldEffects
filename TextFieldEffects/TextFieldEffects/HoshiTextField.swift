@@ -155,6 +155,10 @@ typealias VoidClosure = () -> Void
 		addSubview(errorLabel)
     }
     
+    open func setViewsForTextEntry() {
+        viewForTextEntryAnimationClosure()
+    }
+    
 	override open func animateViewsForTextEntry() {
 		hideError()
 		
