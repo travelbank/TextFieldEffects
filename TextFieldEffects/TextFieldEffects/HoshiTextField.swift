@@ -14,7 +14,7 @@ typealias VoidClosure = () -> Void
  An HoshiTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the lower edge of the control.
  */
 @IBDesignable open class HoshiTextField: TextFieldEffects {
-    
+
     /**
      Fixed textfield height, change this only if designs change
      */
@@ -25,10 +25,10 @@ typealias VoidClosure = () -> Void
             }
         }
     }
-    
+
     /**
      The color of the border when it has no content.
-     
+
      This property applies a color to the lower edge of the control. The default value for this property is a clear color.
      */
     @IBInspectable dynamic open var borderInactiveColor: UIColor? {
@@ -36,10 +36,10 @@ typealias VoidClosure = () -> Void
             updateBorder()
         }
     }
-    
+
     /**
      The color of the border when it has content.
-     
+
      This property applies a color to the lower edge of the control. The default value for this property is a clear color.
      */
     @IBInspectable dynamic open var borderActiveColor: UIColor? {
@@ -47,18 +47,18 @@ typealias VoidClosure = () -> Void
             updateBorder()
         }
     }
-    
+
     /**
      The color of the placeholder text.
-     
+
      This property applies a color to the complete placeholder string.
      */
     private var placeholderColorEmptyState: UIColor = UIColor(red: 198/255, green: 200/255, blue: 204/255, alpha: 1)
     private var placeholderColorInputState: UIColor = UIColor(red: 164/255, green: 167/255, blue: 174/255, alpha: 1)
-    
+
     /**
      The scale of the placeholder font.
-     
+
      This property determines the size of the placeholder label relative to the font size of the text field.
      */
     var placeholderFontSize: CGFloat = 13  {
@@ -66,13 +66,13 @@ typealias VoidClosure = () -> Void
             updatePlaceholder()
         }
     }
-    
+
     override open var placeholder: String? {
         didSet {
             updatePlaceholder()
         }
     }
-    
+
     override open var bounds: CGRect {
         didSet {
             frame = CGRect(x: frame.origin.x,
@@ -81,14 +81,14 @@ typealias VoidClosure = () -> Void
                            height: height)
         }
     }
-    
+
     override open func awakeFromNib() {
         super.awakeFromNib()
         initPlaceholderFont()
     }
-    
-    
-    
+
+
+
     private let borderThicknessActive: CGFloat = 1.0
     private let borderThicknessInactive: CGFloat = 0.5
     private let placeholderInsets = CGPoint(x: 0, y: 25)
@@ -113,31 +113,33 @@ typealias VoidClosure = () -> Void
             }
         }
     }
-    
+
     private var placeholderLabelOriginalText: String?
     private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 16)
     private var errorFont: UIFont? = UIFont(name: "Roboto-Regular", size: 13)
     private var height: CGFloat = 55
-	
-    private var errorLabel = UILabel()
-	
-    open func showError(message: String) {
-		errorLabel.text = message
-		errorLabel.textColor = borderActiveColor
-		errorLabel.sizeToFit()
-		errorLabel.isHidden = false
 
-		activeBorderLayer.frame = rectForBorder(borderThicknessActive)
-		activeBorderLayer.isHidden = false
+    private var errorLabel = UILabel()
+
+    open func showError(message: String) {
+        errorLabel.text = message
+        errorLabel.textColor = borderActiveColor
+        errorLabel.sizeToFit()
+        errorLabel.isHidden = false
+        placeholderLabel.isHidden = true
+
+        activeBorderLayer.frame = rectForBorder(borderThicknessActive)
+        activeBorderLayer.isHidden = false
     }
-    
+
     open func hideError() {
-		errorLabel.isHidden = true
-		activeBorderLayer.isHidden = true
+        errorLabel.isHidden = true
+        activeBorderLayer.isHidden = true
+        placeholderLabel.isHidden = false
     }
-    
+
     // MARK: - TextFieldEffects
-    
+
     override open func drawViewsForRect(_ rect: CGRect) {
         frame = CGRect(x: frame.origin.x,
                        y: frame.origin.y,
@@ -148,20 +150,20 @@ typealias VoidClosure = () -> Void
 		configureErrorLabel()
         updateBorder()
         updatePlaceholder()
-        
+
         layer.addSublayer(inactiveBorderLayer)
         layer.addSublayer(activeBorderLayer)
         addSubview(placeholderLabel)
 		addSubview(errorLabel)
     }
-    
+
     open func setViewsForTextEntry() {
         viewForTextEntryAnimationClosure()
     }
-    
+
 	override open func animateViewsForTextEntry() {
 		hideError()
-		
+
 		guard let text = text else { return }
 		let duration = text.isEmpty ? 0.35 : 0.0
 		UIView.animate(withDuration: duration,
@@ -175,11 +177,11 @@ typealias VoidClosure = () -> Void
 						self.animationCompletionHandler?(.textEntry)
 		})
 	}
-    
+
     override open func animateViewsForTextDisplay() {
         guard let text = text,
 			  text.isEmpty else { return }
-		
+
 		UIView.animate(withDuration: 0.35,
 					   delay: 0.0,
 					   usingSpringWithDamping: 0.8,
@@ -191,9 +193,9 @@ typealias VoidClosure = () -> Void
 						self.animationCompletionHandler?(.textDisplay)
 		})
     }
-    
+
     // MARK: - Private
-    
+
     private var viewForTextEntryAnimationClosure: VoidClosure {
         return {
             self.placeholderLabel.font = self.placeholderFont
@@ -203,7 +205,7 @@ typealias VoidClosure = () -> Void
             self.placeholderLabel.textColor = self.placeholderColorInputState
         }
     }
-    
+
     private var viewForTextDisplayAnimationClosure: VoidClosure {
         return {
             guard let font = UIFont(name: "Roboto-Regular",
@@ -215,64 +217,64 @@ typealias VoidClosure = () -> Void
             self.placeholderLabel.textColor = self.placeholderColorEmptyState
         }
     }
-    
+
     private func initPlaceholderFont() {
         self.placeholderLabel.textColor = placeholderColorEmptyState
         guard let font = placeholderFont else { return }
         let sizedFont = UIFont.init(name: font.fontName, size: (self.font?.pointSize)!)
         self.placeholderLabel.font = sizedFont
     }
-    
+
     private func configurePlaceholderLabelFrame() {
         placeholderLabel.frame = frame.insetBy(dx: placeholderInsets.x, dy: placeholderInsets.y)
         placeholderLabel.frame.origin = inactivePlaceholderPoint
     }
-    
+
     private func configurePlaceholderFont() {
         if let font = placeholderFont {
             placeholderFont = font
         }
     }
-	
+
     private func configureErrorLabel() {
 		errorLabel.frame.origin = activePlaceholderPoint
 		errorLabel.font = errorFont
 		errorLabel.isHidden = true
     }
-    
+
     private func updateBorder() {
         inactiveBorderLayer.frame = rectForBorder(borderThicknessInactive)
         inactiveBorderLayer.backgroundColor = borderInactiveColor?.cgColor
-        
+
         activeBorderLayer.frame = rectForBorder(borderThicknessActive)
         activeBorderLayer.backgroundColor = borderActiveColor?.cgColor
         activeBorderLayer.isHidden = true
     }
-    
+
     private func updatePlaceholder() {
         placeholderLabel.text = placeholder
         placeholderLabel.sizeToFit()
-        
+
         guard let text = text else {
             return
         }
-        
+
         if isFirstResponder || text.isNotEmpty {
             animateViewsForTextEntry()
         }
     }
-    
+
     private func rectForBorder(_ thickness: CGFloat) -> CGRect {
         return CGRect(origin: CGPoint(x: 0, y: floor(frame.height-thickness)),
                       size: CGSize(width: frame.width, height: thickness))
     }
-    
+
     // MARK: - Overrides
-    
+
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.offsetBy(dx: textFieldInsets.x, dy: textFieldInsets.y)
     }
-    
+
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.offsetBy(dx: textFieldInsets.x, dy: textFieldInsets.y)
     }
