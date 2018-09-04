@@ -107,15 +107,15 @@ typealias VoidClosure = () -> Void
     private var inactivePlaceholderPoint: CGPoint {
         get {
             if let font = font, font.pointSize > 15 {
-                return CGPoint(x: 0, y: 18)
+                return CGPoint(x: 0, y: 17)
             } else {
-                return CGPoint(x: 0, y: 27)
+                return CGPoint(x: 0, y: 22)
             }
         }
     }
 
     private var placeholderLabelOriginalText: String?
-    private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 16)
+    private var placeholderFont: UIFont? = UIFont(name: "Roboto-Regular", size: 15)
     private var errorFont: UIFont? = UIFont(name: "Roboto-Regular", size: 13)
     private var height: CGFloat = 55
 
@@ -147,14 +147,14 @@ typealias VoidClosure = () -> Void
                        height: height)
         configurePlaceholderLabelFrame()
         configurePlaceholderFont()
-		configureErrorLabel()
+        configureErrorLabel()
         updateBorder()
         updatePlaceholder()
 
         layer.addSublayer(inactiveBorderLayer)
         layer.addSublayer(activeBorderLayer)
         addSubview(placeholderLabel)
-		addSubview(errorLabel)
+        addSubview(errorLabel)
     }
 
     open func setViewsForTextEntry() {
