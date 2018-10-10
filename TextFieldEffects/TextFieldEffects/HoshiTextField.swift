@@ -53,8 +53,8 @@ typealias VoidClosure = () -> Void
 
      This property applies a color to the complete placeholder string.
      */
-    private var placeholderColorEmptyState: UIColor = UIColor(red: 198/255, green: 200/255, blue: 204/255, alpha: 1)
-    private var placeholderColorInputState: UIColor = UIColor(red: 164/255, green: 167/255, blue: 174/255, alpha: 1)
+    private var placeholderColorEmptyState: UIColor = UIColor(red: 109/255, green: 113/255, blue: 122/255, alpha: 1)
+    private var placeholderColorInputState: UIColor = UIColor(red: 109/255, green: 113/255, blue: 122/255, alpha: 1)
 
     /**
      The scale of the placeholder font.
