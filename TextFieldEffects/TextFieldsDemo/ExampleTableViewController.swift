@@ -23,10 +23,6 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    guard prefillTextFields == true else { return }
-
-//    _ = textFields.map { $0.text = "Raul" }
-
     hoshiTextField?.delegate = self
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyAwesomeCell")
   }
