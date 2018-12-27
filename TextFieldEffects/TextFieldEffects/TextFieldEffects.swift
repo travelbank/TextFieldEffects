@@ -40,7 +40,7 @@ open class TextFieldEffects : UITextField {
     /**
     UILabel that holds all the placeholder information
     */
-    open let placeholderLabel = UILabel()
+    public let placeholderLabel = UILabel()
     
     /**
     Creates all the animations that are used to leave the textfield in the "entering text" state.

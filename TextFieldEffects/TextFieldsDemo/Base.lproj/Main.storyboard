@@ -1,119 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kzy-mN-NiP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kzy-mN-NiP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Example Table View Controller-->
         <scene sceneID="Nc8-Ic-z6g">
             <objects>
                 <tableViewController id="kzy-mN-NiP" customClass="ExampleTableViewController" customModule="TextFieldsDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="none" rowHeight="66" sectionHeaderHeight="10" sectionFooterHeight="20" id="UgI-5u-Epd">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="66" sectionHeaderHeight="10" sectionFooterHeight="20" id="UgI-5u-Epd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <sections>
-                            <tableViewSection headerTitle="TB Custom TextField" id="AbQ-x2-uxC" userLabel="Hoshi">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wwG-to-oRu">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="66"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wwG-to-oRu" id="wIr-G7-NUd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First name" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wPN-pg-TQv" customClass="HoshiTextField" customModule="TextFieldEffects">
-                                                    <rect key="frame" x="16" y="3" width="343" height="75"/>
-                                                    <color key="textColor" red="0.10588235294117647" green="0.14117647058823529" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="13"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                            <color key="value" red="0.67450980392156867" green="0.67450980392156867" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderActiveColor">
-                                                            <color key="value" red="0.9882352941176471" green="0.23137254901960785" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
-                                                            <color key="value" red="0.77647058823529413" green="0.78431372549019607" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="kzy-mN-NiP" id="m6c-jO-lIb"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="wPN-pg-TQv" firstAttribute="leading" secondItem="wIr-G7-NUd" secondAttribute="leading" constant="16" id="7VN-F6-a6R"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="wPN-pg-TQv" secondAttribute="bottom" constant="-23" id="Nf7-Rv-06K"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="wPN-pg-TQv" secondAttribute="trailing" id="Q90-Y2-KRW"/>
-                                                <constraint firstItem="wPN-pg-TQv" firstAttribute="top" secondItem="wIr-G7-NUd" secondAttribute="topMargin" constant="-8" id="ScY-CY-aLD"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="zeb-Ue-zMG">
-                                        <rect key="frame" x="0.0" y="121.5" width="375" height="66"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zeb-Ue-zMG" id="ghv-IE-mta">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last name" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="e0W-QW-ILq" customClass="HoshiTextField" customModule="TextFieldEffects">
-                                                    <rect key="frame" x="16" y="3" width="343" height="60"/>
-                                                    <color key="textColor" red="0.1058823529" green="0.14117647059999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="23"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                            <color key="value" red="0.77647058823529413" green="0.78431372549019607" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderActiveColor">
-                                                            <color key="value" red="0.91826558113098145" green="0.0" blue="0.077577665448188782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
-                                                            <color key="value" red="0.77647058823529413" green="0.78431372549019607" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="e0W-QW-ILq" firstAttribute="leading" secondItem="ghv-IE-mta" secondAttribute="leading" constant="16" id="0pj-V1-qVv"/>
-                                                <constraint firstItem="e0W-QW-ILq" firstAttribute="top" secondItem="ghv-IE-mta" secondAttribute="topMargin" constant="-8" id="FhC-HE-a0x"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="e0W-QW-ILq" secondAttribute="bottom" constant="-8" id="tKv-zH-ezo"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="e0W-QW-ILq" secondAttribute="trailing" id="zu3-mo-ddv"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="kzy-mN-NiP" id="QcT-K3-9yn"/>
                             <outlet property="delegate" destination="kzy-mN-NiP" id="Tlo-Gu-cAT"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="hoshiTextField" destination="wPN-pg-TQv" id="vnG-hE-yTZ"/>
-                        <outletCollection property="textFields" destination="wPN-pg-TQv" collectionClass="NSMutableArray" id="wy5-Yp-r1G"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5a-Zk-PZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
