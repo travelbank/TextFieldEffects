@@ -164,6 +164,7 @@ typealias VoidClosure = () -> Void
                    y: frame.origin.y,
                    width: rect.size.width ,
                    height: height)
+    updateBorder()
   }
 
   open func setViewsForTextEntry() {
@@ -254,6 +255,7 @@ typealias VoidClosure = () -> Void
   private func updateBorder() {
     inactiveBorderLayer.frame = rectForBorder(borderThicknessInactive)
     inactiveBorderLayer.backgroundColor = borderInactiveColor?.cgColor
+    inactiveBorderLayer.isHidden = false
 
     activeBorderLayer.frame = rectForBorder(borderThicknessActive)
     activeBorderLayer.backgroundColor = borderActiveColor?.cgColor
@@ -263,7 +265,7 @@ typealias VoidClosure = () -> Void
   private func updatePlaceholder() {
     placeholderLabel.text = placeholder
     placeholderLabel.sizeToFit()
-    
+
     guard let text = text else {
       return
     }
