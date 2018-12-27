@@ -122,6 +122,11 @@ typealias VoidClosure = () -> Void
     configureUI()
   }
 
+  override open func awakeFromNib() {
+    super.awakeFromNib()
+    configureUI()
+  }
+
   private func configureUI() {
     initPlaceholderFont()
     configurePlaceholderLabelFrame()

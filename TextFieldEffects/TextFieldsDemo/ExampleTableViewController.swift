@@ -78,10 +78,10 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
     allConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-60-[view]-|",
                                                      metrics: nil,
                                                      views: views)
-//    allConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view]",
-//                                                     options: [.alignAllCenterY],
-//                                                     metrics: nil,
-//                                                     views: views)
+    allConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view]",
+                                                     options: [.alignAllCenterY],
+                                                     metrics: nil,
+                                                     views: views)
     NSLayoutConstraint.activate(allConstraints)
     cell.addConstraints(allConstraints)
     return cell
