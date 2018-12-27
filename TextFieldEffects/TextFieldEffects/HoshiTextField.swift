@@ -132,6 +132,8 @@ typealias VoidClosure = () -> Void
     configurePlaceholderLabelFrame()
     configurePlaceholderFont()
     configureErrorLabel()
+    updateBorder()
+    updatePlaceholder()
     layer.addSublayer(inactiveBorderLayer)
     layer.addSublayer(activeBorderLayer)
     addSubview(placeholderLabel)
