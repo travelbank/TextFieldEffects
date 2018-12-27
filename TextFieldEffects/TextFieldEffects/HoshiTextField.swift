@@ -255,11 +255,17 @@ typealias VoidClosure = () -> Void
   private func updateBorder() {
     inactiveBorderLayer.frame = rectForBorder(borderThicknessInactive)
     inactiveBorderLayer.backgroundColor = borderInactiveColor?.cgColor
-    inactiveBorderLayer.isHidden = false
 
     activeBorderLayer.frame = rectForBorder(borderThicknessActive)
     activeBorderLayer.backgroundColor = borderActiveColor?.cgColor
-    activeBorderLayer.isHidden = true
+
+    if errorLabel.isHidden {
+      inactiveBorderLayer.isHidden = false
+      activeBorderLayer.isHidden = true
+    } else {
+      inactiveBorderLayer.isHidden = true
+      activeBorderLayer.isHidden = false
+    }
   }
 
   private func updatePlaceholder() {
