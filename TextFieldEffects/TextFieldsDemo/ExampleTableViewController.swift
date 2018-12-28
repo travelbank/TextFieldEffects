@@ -11,6 +11,10 @@ import TextFieldEffects
 
 class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
 
+  var travelbankNight: UIColor = UIColor(hex: "#1B2432")
+  var travelbankSilver: UIColor = UIColor(hex: "#E0E2E6")
+  var travelbankRadical: UIColor = UIColor(hex: "#FC3B60")
+
   @IBOutlet private var textFields: [TextFieldEffects]!
   @IBOutlet private var hoshiTextField: HoshiTextField?
 
@@ -19,10 +23,12 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
    textFields prepopulated with the name "Raul" (for testing purposes)
    */
   let prefillTextFields = false
-  var cells = [Any](repeating: 0, count: 2)
+  var cells: [(String, CGFloat)] = [(String, CGFloat)]()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    cells = [(NSLocalizedString("Firstname", comment: "Firstname example label"), 24),
+             (NSLocalizedString("Lastname", comment: "Lastname example label"), 15)]
     hoshiTextField?.delegate = self
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyAwesomeCell")
   }
@@ -51,19 +57,21 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return cells.count
   }
+
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyAwesomeCell") else {
       return UITableViewCell()
     }
+    let configuredCell = configure(cell: cell, with: cells[indexPath.row].0, height: cells[indexPath.row].1)
+    return configuredCell
+  }
 
+  private func configure(cell: UITableViewCell, with placeholder: String, height: CGFloat) -> UITableViewCell {
     let textField = HoshiTextField(frame: cell.frame)
-    if indexPath.row == 0 {
-      textField.placeholderLabel.text = "Firstname"
-      textField.placeholder = "Firstname"
-    } else {
-      textField.placeholderLabel.text = "Lastname"
-      textField.placeholder = "Lastname"
-    }
+    textField.borderActiveColor = travelbankRadical
+    textField.borderInactiveColor = travelbankNight
+    textField.font = UIFont(name: "Roboto-Regular", size: height)
+    textField.placeholder = placeholder
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.delegate = self
     cell.contentView.addSubview(textField)
@@ -92,7 +100,8 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
   @available(iOS 10.0, *)
   func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
     if let text = textField.text, !text.isEmpty, let textField = textField as? HoshiTextField {
-      textField.showError(message: "Bad Name!")
+      let message = NSLocalizedString("Error", comment: "Error Message for TextField")
+      textField.showError(message: message)
     }
   }
 }
