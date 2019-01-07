@@ -128,17 +128,14 @@ typealias VoidClosure = () -> Void
   }
 
   private func configureUI() {
-
     initPlaceholderFont()
     configurePlaceholderLabelFrame()
     configurePlaceholderFont()
     configureErrorLabel()
     updateBorder()
     updatePlaceholder()
-
     addSublayers()
     addLabels()
-
     frame = CGRect(x: frame.origin.x,
                    y: frame.origin.y,
                    width: frame.size.width ,
