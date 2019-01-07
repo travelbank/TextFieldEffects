@@ -138,7 +138,7 @@ typealias VoidClosure = () -> Void
     addLabels()
     frame = CGRect(x: frame.origin.x,
                    y: frame.origin.y,
-                   width: frame.size.width ,
+                   width: frame.size.width,
                    height: height)
   }
 
@@ -158,7 +158,7 @@ typealias VoidClosure = () -> Void
     updateBorder()
     frame = CGRect(x: frame.origin.x,
                    y: frame.origin.y,
-                   width: frame.size.width ,
+                   width: frame.size.width,
                    height: height)
   }
 
