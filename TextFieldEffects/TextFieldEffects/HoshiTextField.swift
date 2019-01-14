@@ -167,7 +167,7 @@ typealias VoidClosure = () -> Void
     errorLabel.textColor = borderActiveColor
     errorLabel.sizeToFit()
     errorLabel.isHidden = false
-    placeholderLabel.isHidden = true
+    placeholderLabel.isHidden = false
 
     activeBorderLayer.frame = rectForBorder(borderThicknessActive)
     activeBorderLayer.isHidden = false
