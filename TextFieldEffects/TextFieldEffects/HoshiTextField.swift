@@ -134,10 +134,32 @@ typealias VoidClosure = () -> Void
     configureErrorLabel()
     updateBorder()
     updatePlaceholder()
+    addSublayers()
+    addLabels()
+    frame = CGRect(x: frame.origin.x,
+                   y: frame.origin.y,
+                   width: frame.size.width,
+                   height: height)
+  }
+
+  private func addSublayers() {
     layer.addSublayer(inactiveBorderLayer)
     layer.addSublayer(activeBorderLayer)
+  }
+
+  private func addLabels() {
     addSubview(placeholderLabel)
     addSubview(errorLabel)
+  }
+
+  open override func setNeedsLayout() {
+    super.setNeedsLayout()
+    updatePlaceholder()
+    updateBorder()
+    frame = CGRect(x: frame.origin.x,
+                   y: frame.origin.y,
+                   width: frame.size.width,
+                   height: height)
   }
 
   open func showError(message: String) {
@@ -145,7 +167,7 @@ typealias VoidClosure = () -> Void
     errorLabel.textColor = borderActiveColor
     errorLabel.sizeToFit()
     errorLabel.isHidden = false
-    placeholderLabel.isHidden = true
+    placeholderLabel.isHidden = false
 
     activeBorderLayer.frame = rectForBorder(borderThicknessActive)
     activeBorderLayer.isHidden = false
@@ -160,11 +182,7 @@ typealias VoidClosure = () -> Void
   // MARK: - TextFieldEffects
 
   override open func drawViewsForRect(_ rect: CGRect) {
-    frame = CGRect(x: frame.origin.x,
-                   y: frame.origin.y,
-                   width: rect.size.width ,
-                   height: height)
-    updateBorder()
+
   }
 
   open func setViewsForTextEntry() {
