@@ -81,7 +81,7 @@ typealias VoidClosure = () -> Void
   }
 
   private let borderThicknessActive: CGFloat = 1.0
-  private let borderThicknessInactive: CGFloat = 0.5
+  private let borderThicknessInactive: CGFloat = 1.0
   private let placeholderInsets = CGPoint(x: 0, y: 25)
   private let textFieldInsets = CGPoint(x: 0, y: 4.5)
   private let inactiveBorderLayer = CALayer()
