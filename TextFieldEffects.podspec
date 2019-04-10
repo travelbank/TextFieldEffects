@@ -16,8 +16,9 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TextFieldEffects"
-  s.version      = "1.4.1"
+  s.version      = "1.5.0"
   s.summary      = "Custom drop in UITextFields effects."
+  s.swift_version = '5.0'
 
   s.description  = <<-DESC
                    TextFieldEffects enables a collection of drop in effects to standard UITextFields.

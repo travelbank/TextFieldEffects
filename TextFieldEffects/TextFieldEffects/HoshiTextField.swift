@@ -214,7 +214,7 @@ typealias VoidClosure = () -> Void
                    delay: 0.0,
                    usingSpringWithDamping: 0.8,
                    initialSpringVelocity: 2.0,
-                   options: UIViewAnimationOptions.beginFromCurrentState,
+                   options: UIView.AnimationOptions.beginFromCurrentState,
                    animations: ({
                     self.viewForTextDisplayAnimationClosure()
                    }), completion: { _  in
