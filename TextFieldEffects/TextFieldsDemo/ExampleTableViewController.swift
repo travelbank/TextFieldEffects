@@ -38,12 +38,12 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
     return true
   }
 
-  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
     return .delete
   }
 
   override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.default,
+    let delete = UITableViewRowAction(style: UITableViewRowAction.Style.default,
                                       title: "Delete" ,
                                       handler: { (action: UITableViewRowAction, indexPath: IndexPath) -> Void in
                                         self.cells.remove(at: indexPath.row)
@@ -98,7 +98,7 @@ class ExampleTableViewController : UITableViewController, UITextFieldDelegate {
     textField.hideError()
   }
   @available(iOS 10.0, *)
-  func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+  func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
     if let text = textField.text, !text.isEmpty, let textField = textField as? HoshiTextField {
       let message = NSLocalizedString("Error", comment: "Error Message for TextField")
       textField.showError(message: message)
