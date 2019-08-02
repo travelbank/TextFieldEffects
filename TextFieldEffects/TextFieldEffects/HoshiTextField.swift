@@ -111,7 +111,7 @@ typealias VoidClosure = () -> Void
   private var height: CGFloat = 55
 
   private var errorLabel = UILabel()
-
+  private var textEntryMode = false
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -167,7 +167,7 @@ typealias VoidClosure = () -> Void
     errorLabel.textColor = borderActiveColor
     errorLabel.sizeToFit()
     errorLabel.isHidden = false
-    placeholderLabel.isHidden = false
+    placeholderLabel.isHidden = textEntryMode ? true : false
 
     activeBorderLayer.frame = rectForBorder(borderThicknessActive)
     activeBorderLayer.isHidden = false
@@ -190,9 +190,10 @@ typealias VoidClosure = () -> Void
   }
 
   override open func animateViewsForTextEntry() {
+    guard let text = text else { return }
+    textEntryMode = true
     hideError()
 
-    guard let text = text else { return }
     let duration = text.isEmpty ? 0.35 : 0.0
     UIView.animate(withDuration: duration,
                    delay: 0.0,
@@ -209,6 +210,7 @@ typealias VoidClosure = () -> Void
   override open func animateViewsForTextDisplay() {
     guard let text = text,
       text.isEmpty else { return }
+    textEntryMode = false
 
     UIView.animate(withDuration: 0.35,
                    delay: 0.0,
